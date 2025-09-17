@@ -298,3 +298,29 @@ button{
 button:active{ transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.25), 0 3px 6px rgba(0,0,0,0.2); }
 button:disabled{ opacity:.6; cursor:not-allowed; box-shadow:none; }
 .theme-dark button{ background:#111827cc; color:#e5e7eb; }
+/* Make the whole card take the available screen height */
+#card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* space out question + choices + controls */
+  min-height: calc(100vh - 220px); /* adjust based on header/footer size */
+  box-sizing: border-box;
+}
+
+/* Limit scrolling inside choices if they overflow */
+#choices {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  margin: 12px 0;
+}
+@media (max-width: 640px) {
+  header.wrap, footer.wrap {
+    padding: 6px 0;
+  }
+}
+#explanation {
+  min-height: 2em;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
