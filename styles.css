@@ -132,13 +132,28 @@ a { color: var(--link); }
 }
 
 button {
-  padding: 10px 14px;
-  border: 1px solid var(--btn-border);
-  border-radius: 10px;
-  background: var(--btn-bg);
-  color: var(--fg);
+  flex: 1 1 auto;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 18px;
+  font-weight: 700;
+  background: #ffffffcc;
+  color: #111;
   cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.25), 0 6px 12px rgba(0,0,0,0.15);
 }
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.25), 0 3px 6px rgba(0,0,0,0.2);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 button:hover { filter: brightness(1.05); }
 button:disabled { opacity: 0.6; cursor: not-allowed; }
 
