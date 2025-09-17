@@ -207,3 +207,94 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 .theme-dark .colorframe-inner {
   box-shadow: inset 0 0 0 1px var(--border);
 }
+
+
+/* ---- Colorful outer frame (static, no rotation) ---- */
+.colorframe {
+  --frame-radius: 22px;
+  --frame-padding: 2px;  /* thickness of the colorful border */
+  max-width: 980px;
+  margin: 18px auto;
+  padding: var(--frame-padding);
+  border-radius: var(--frame-radius);
+  background: conic-gradient(
+    from 0deg,
+    #ff5858, #f7b733, #ffeb3b, #34d399, #60a5fa, #8b5cf6, #ec4899, #ff5858
+  );
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+.colorframe-inner {
+  border-radius: calc(var(--frame-radius) - var(--frame-padding));
+  background: var(--bg);
+  color: var(--fg);
+  padding: 16px 12px;
+}
+.theme-dark .colorframe-inner { box-shadow: inset 0 0 0 1px var(--border); }
+
+/* ---- Phone shell (narrow mobile look) ---- */
+.phone {
+  max-width: 420px;
+  margin: 12px auto;
+  padding: 18px 14px;
+  border-radius: 28px;
+  background: linear-gradient(180deg,#6bdcff 0%, #7ce3ff 100%);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+}
+.theme-dark .phone {
+  background: linear-gradient(180deg,#0ea5e9 0%, #2563eb 100%);
+}
+
+/* Make internals breathe on desktop */
+@media (min-width: 640px) {
+  .colorframe-inner { padding: 24px 18px; }
+}
+
+/* ---- Mobile tightening ---- */
+.wrap{ max-width: unset; margin: 0; padding: 0; }
+
+/* ---- Meta pill ---- */
+#meta { display:flex; gap:10px; align-items:center; margin-bottom:12px; }
+#progress{
+  display:inline-block; font-weight:700; font-size:.9rem;
+  padding:6px 10px; border-radius:12px; background:#b39ddb; color:#fff;
+}
+#score{ margin-left:auto; color:#fff; font-weight:600; }
+
+/* ---- Card & question ---- */
+#card{ border:none; border-radius:24px; padding:14px; background:transparent; box-shadow:none; }
+#qtext{
+  margin:6px 0 12px; background:#ffa726; color:#111;
+  border-radius:20px; padding:16px 14px; font-size:1.05rem; font-weight:800;
+}
+.theme-dark #qtext{ background:#f59e0b; color:#111; }
+
+/* ---- Choices: colorful pills with 3D press ---- */
+#choices{ display:grid; gap:12px; }
+.choice{
+  border:none; border-radius:24px; padding:16px 14px; font-weight:700; color:#fff; outline:none;
+  transition: transform .08s ease, box-shadow .08s ease;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.25), 0 6px 12px rgba(0,0,0,0.15);
+}
+.choice:active{ transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.25), 0 3px 6px rgba(0,0,0,0.2); }
+
+/* base colors by letter */
+.choice[data-key="a"]{ background:#2587d7; } /* teal */
+.choice[data-key="b"]{ background:#2587d9; } /* green */
+.choice[data-key="c"]{ background:#2587e1; } /* blue */
+.choice[data-key="d"]{ background:#2587e3; } /* red */
+
+/* result colors after answering */
+.choice.correct{ background:#22c55e !important; color:#fff; }
+.choice.wrong  { background:#ef4444 !important; color:#fff; }
+
+/* ---- Controls: 3D buttons ---- */
+.controls{ display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+button{
+  flex:1 1 auto; padding:12px 14px; border:none; border-radius:18px; font-weight:700;
+  background:#ffffffcc; color:#111; cursor:pointer;
+  transition: transform .08s ease, box-shadow .08s ease;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.25), 0 6px 12px rgba(0,0,0,0.15);
+}
+button:active{ transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.25), 0 3px 6px rgba(0,0,0,0.2); }
+button:disabled{ opacity:.6; cursor:not-allowed; box-shadow:none; }
+.theme-dark button{ background:#111827cc; color:#e5e7eb; }
