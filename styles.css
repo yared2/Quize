@@ -1,16 +1,153 @@
+/* ---------- Theme variables ---------- */
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #555555;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --btn-bg: #ffffff;
+  --btn-border: #bdbdbd;
+
+  --correct-bg: #e7f7ea;
+  --correct-border: #2e7d32;
+  --wrong-bg: #fde8e7;
+  --wrong-border: #c62828;
+
+  --link: #0b57d0;
+  --focus: #2563eb33; /* light blue outline */
+}
+
+/* Auto dark if user prefers, can be overridden by toggle */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0f14;
+    --fg: #e5e7eb;
+    --muted: #98a2b3;
+    --card: #11161c;
+    --border: #1f2a37;
+    --btn-bg: #151b23;
+    --btn-border: #324055;
+
+    --correct-bg: #0d2a19;
+    --correct-border: #34d399;
+    --wrong-bg: #2a1514;
+    --wrong-border: #f87171;
+
+    --link: #8ab4ff;
+    --focus: #60a5fa33;
+  }
+}
+
+/* Manual dark mode (overrides media query) */
+.theme-dark {
+  --bg: #0b0f14;
+  --fg: #e5e7eb;
+  --muted: #98a2b3;
+  --card: #11161c;
+  --border: #1f2a37;
+  --btn-bg: #151b23;
+  --btn-border: #324055;
+
+  --correct-bg: #0d2a19;
+  --correct-border: #34d399;
+  --wrong-bg: #2a1514;
+  --wrong-border: #f87171;
+
+  --link: #8ab4ff;
+  --focus: #60a5fa33;
+}
+
+/* ---------- Base & layout ---------- */
 * { box-sizing: border-box; }
-body { font-family: system-ui, Arial, sans-serif; margin: 0; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.5;
+}
+
 .wrap { max-width: 860px; margin: 16px auto; padding: 0 12px; }
-h1 { margin: 8px 0 12px; }
-#card { border: 1px solid #ddd; border-radius: 12px; padding: 16px; }
-#qtext { font-size: 1.1rem; margin-bottom: 12px; }
-.choice { border: 1px solid #ddd; border-radius: 10px; padding: 10px; margin: 8px 0; cursor: pointer; }
-.choice.correct { background: #e7f7ea; border-color: #2e7d32; }
-.choice.wrong { background: #fde8e7; border-color: #c62828; }
-.controls { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-button { padding: 8px 12px; border: 1px solid #bbb; border-radius: 8px; background: #fff; cursor: pointer; }
+h1 { margin: 8px 0 12px; font-size: clamp(1.25rem, 2.5vw, 1.75rem); }
+
+a { color: var(--link); }
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.loader {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+  margin: 10px 0 16px;
+}
+.loader small {
+  grid-column: 1 / -1;
+  color: var(--muted);
+}
+.loader input, .loader select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--btn-border);
+  border-radius: 10px;
+  background: var(--btn-bg);
+  color: var(--fg);
+}
+
+/* ---------- Card & quiz ---------- */
+#card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  background: var(--card);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+#qtext { font-size: 1.05rem; margin-bottom: 12px; }
+
+#choices { display: grid; gap: 10px; }
+.choice {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+  outline: none;
+}
+.choice:focus-visible {
+  box-shadow: 0 0 0 3px var(--focus);
+}
+.choice.correct { background: var(--correct-bg); border-color: var(--correct-border); }
+.choice.wrong   { background: var(--wrong-bg);   border-color: var(--wrong-border); }
+
+.controls {
+  display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;
+}
+
+button {
+  padding: 10px 14px;
+  border: 1px solid var(--btn-border);
+  border-radius: 10px;
+  background: var(--btn-bg);
+  color: var(--fg);
+  cursor: pointer;
+}
+button:hover { filter: brightness(1.05); }
 button:disabled { opacity: 0.6; cursor: not-allowed; }
-#explanation { margin-top: 10px; min-height: 1.2em; }
-.loader { display: grid; gap: 6px; align-items: start; max-width: 100%; }
-.loader input { width: 100%; padding: 10px; border: 1px solid #bbb; border-radius: 8px; }
-#meta { margin-bottom: 10px; color: #444; }
+
+#meta { margin-bottom: 10px; color: var(--muted); }
+#explanation { margin-top: 10px; min-height: 1.2em; color: var(--muted); }
+
+/* ---------- Mobile tweaks ---------- */
+@media (max-width: 640px) {
+  .loader { grid-template-columns: 1fr; }
+  .controls { justify-content: space-between; }
+  button { flex: 1 1 auto; }
+}

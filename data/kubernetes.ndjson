@@ -1,0 +1,1 @@
+{"id":301,"question":"Which object provides stable networking to a set of Pods?","options":{"a":"Deployment","b":"ReplicaSet","c":"Service","d":"ConfigMap"},"answer":"c","explanation":"Service exposes pods via a stable virtual IP/DNS."}

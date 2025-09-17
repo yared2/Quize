@@ -23,18 +23,95 @@ const els = {
   shuffle: document.getElementById('shuffleBtn')
 };
 
+
+// --- Theme handling (dark / light with persistence) ---
+const themeBtn = document.getElementById('themeToggle');
+const rootEl = document.documentElement;
+
+function applyTheme(mode) {
+  if (mode === 'dark') {
+    rootEl.classList.add('theme-dark');
+    if (themeBtn) themeBtn.textContent = '☀️ Light';
+  } else {
+    rootEl.classList.remove('theme-dark');
+    if (themeBtn) themeBtn.textContent = '🌙 Dark';
+  }
+}
+
+function getSystemPrefersDark() {
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+// Load saved theme or system default
+const savedTheme = localStorage.getItem('quizTheme');
+applyTheme(savedTheme ? savedTheme : (getSystemPrefersDark() ? 'dark' : 'light'));
+
+// Toggle click
+if (themeBtn) {
+  themeBtn.addEventListener('click', () => {
+    const next = rootEl.classList.contains('theme-dark') ? 'light' : 'dark';
+    applyTheme(next);
+    localStorage.setItem('quizTheme', next);
+  });
+}
+
+
+els.topic = document.getElementById('topic');
+
+if (els.topic) {
+  els.topic.addEventListener('change', async () => {
+    const topic = els.topic.value;
+    if (!topic) return;
+    const url = TOPIC_SOURCES[topic];
+    try {
+      const qs = await loadAndParse(url);
+      initQuiz(qs);
+      saveState(url);
+      // reflect selection in URL (?topic=java)
+      const params = new URLSearchParams(location.search);
+      params.set('topic', topic);
+      history.replaceState(null, "", "?" + params.toString());
+    } catch (e) {
+      alert('Load error: ' + e.message);
+    }
+  });
+}
+
+
+// Topic → RAW file map
+const TOPIC_SOURCES = {
+  java: "https://raw.githubusercontent.com/yared2/Quize/main/data/java.ndjson",
+  spring: "https://raw.githubusercontent.com/yared2/Quize/main/data/spring.ndjson",
+  kubernetes: "https://raw.githubusercontent.com/yared2/Quize/main/data/kubernetes.ndjson",
+};
+
+// Optional default (used on first load or when no topic chosen)
+const DEFAULT_DATA_URL = TOPIC_SOURCES.java; // autoload Java by default
+
+
 // Auto-load your default questions file from GitHub
-const DEFAULT_DATA_URL = "https://raw.githubusercontent.com/yared2/Quize/main/data/questions.ndjson";
+//const DEFAULT_DATA_URL = "https://raw.githubusercontent.com/yared2/Quize/main/data/questions.ndjson";
 
 window.addEventListener('DOMContentLoaded', async () => {
+  const params = new URLSearchParams(location.search);
+  const topic = params.get('topic');
+  const remembered = loadState().url;
+
+  // Priority: URL ?topic → remembered URL → DEFAULT
+  let url = topic && TOPIC_SOURCES[topic] ? TOPIC_SOURCES[topic]
+          : remembered || DEFAULT_DATA_URL;
+
+  if (els.topic && topic) els.topic.value = topic;
+
   try {
-    const qs = await loadAndParse(DEFAULT_DATA_URL);
+    const qs = await loadAndParse(url);
     initQuiz(qs);
-    saveState(DEFAULT_DATA_URL);
+    saveState(url);
   } catch (e) {
     console.error("Default data load failed:", e);
   }
 });
+
 
 els.loadBtn.addEventListener('click', async () => {
   const url = els.dataUrl.value.trim();
