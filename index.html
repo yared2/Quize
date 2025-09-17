@@ -7,34 +7,34 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="wrap">
-    <h1>Static Q&A Quiz</h1>
-     <div class="toolbar">
+<header class="wrap">
+  <h1>Static Q&A Quiz</h1>
+
+  <!-- Theme toggle -->
+  <div class="toolbar">
     <button id="themeToggle" aria-label="Toggle dark mode">🌙 Dark</button>
   </div>
-    <div class="loader">
-      <input id="dataUrl" type="url" placeholder="Paste GitHub RAW URL (NDJSON or CSV)" />
-      <button id="loadBtn">Load</button>
-      <small>Tip: raw.githubusercontent.com/USER/REPO/BRANCH/data/questions.ndjson</small>
-    </div>
-    <div class="loader">
-  <input id="dataUrl" type="url" placeholder="Paste GitHub RAW URL (NDJSON or CSV)" />
-  <button id="loadBtn">Load</button>
-  <small>Tip: raw.githubusercontent.com/USER/REPO/BRANCH/data/file.ndjson</small>
-</div>
 
-<!-- NEW: Topic picker -->
-<div class="loader">
-  <label for="topic">Pick a topic:</label>
-  <select id="topic">
-    <option value="">— Select —</option>
-    <option value="java">Java</option>
-    <option value="spring">Spring</option>
-    <option value="kubernetes">Kubernetes</option>
-  </select>
-</div>
+  <!-- ONE url loader -->
+  <div class="loader">
+    <input id="dataUrl" type="url" placeholder="Paste GitHub RAW URL (NDJSON or CSV)" />
+    <button id="loadBtn">Load</button>
+    <small>Tip: raw.githubusercontent.com/USER/REPO/BRANCH/data/file.ndjson</small>
+  </div>
 
-  </header>
+  <!-- ONE topic picker -->
+  <div class="loader">
+    <label for="topic">Pick a topic:</label>
+    <select id="topic">
+      <option value="">— Select —</option>
+      <option value="java">Java</option>
+      <option value="spring">Spring</option>
+      <option value="kubernetes">Kubernetes</option>
+    </select>
+    <small>Choose a topic OR paste a RAW URL above.</small>
+  </div>
+</header>
+
 
   <main class="wrap" id="app" hidden>
     <div id="meta">
