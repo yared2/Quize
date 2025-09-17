@@ -151,3 +151,44 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   .controls { justify-content: space-between; }
   button { flex: 1 1 auto; }
 }
+
+/* ---- Colorful frame ---- */
+.colorframe {
+  --frame-radius: 22px;
+  --frame-padding: 2px; /* thickness of the colorful border */
+  max-width: 980px;
+  margin: 18px auto;
+  padding: var(--frame-padding);
+  border-radius: var(--frame-radius);
+  background: conic-gradient(
+    from 0deg,
+    #ff5858, #f7b733, #ffeb3b, #34d399, #60a5fa, #8b5cf6, #ec4899, #ff5858
+  );
+
+}
+
+.colorframe-inner {
+  border-radius: calc(var(--frame-radius) - var(--frame-padding));
+  background: var(--bg);
+  color: var(--fg);
+  padding: 16px 12px;
+}
+
+/* slower on users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .colorframe { animation: none; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Make internals breathe a bit more on desktop */
+@media (min-width: 640px) {
+  .colorframe-inner { padding: 24px 18px; }
+}
+
+/* Optional: subtle inner border for contrast in dark mode */
+.theme-dark .colorframe-inner {
+  box-shadow: inset 0 0 0 1px var(--border);
+}
