@@ -324,3 +324,28 @@ button:disabled{ opacity:.6; cursor:not-allowed; box-shadow:none; }
   font-size: 0.9rem;
   color: var(--muted);
 }
+
+
+/* Tighter header spacing */
+header.wrap {
+  margin-bottom: 8px; /* reduce bottom gap before main */
+}
+
+header.wrap h1 {
+  margin: 4px 0 6px;   /* smaller top/bottom margin */
+  font-size: 1.3rem;   /* slightly smaller title */
+}
+
+header.wrap .toolbar {
+  margin: 2px 0;       /* reduce space around toggle */
+}
+
+header.wrap .loader {
+  margin: 6px 0;       /* tighten topic picker gap */
+  gap: 6px;            /* reduce space between input and button/select */
+}
+
+header.wrap .loader small {
+  margin-top: 2px;     /* tighten tip text */
+  font-size: 0.75rem;
+}
