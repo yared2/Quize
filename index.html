@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Static Q&A Quiz</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="wrap">
+    <h1>Static Q&A Quiz</h1>
+    <div class="loader">
+      <input id="dataUrl" type="url" placeholder="Paste GitHub RAW URL (NDJSON or CSV)" />
+      <button id="loadBtn">Load</button>
+      <small>Tip: raw.githubusercontent.com/USER/REPO/BRANCH/data/questions.ndjson</small>
+    </div>
+  </header>
+
+  <main class="wrap" id="app" hidden>
+    <div id="meta">
+      <span id="progress">Q 0/0</span> • <span id="score">Score: 0</span>
+    </div>
+    <section id="card">
+      <div id="qtext"></div>
+     <div id="choices"></div>
+      <div id="explanation" aria-live="polite"></div>
+      <div class="controls">
+        <button id="prevBtn">Prev</button>
+        <button id="nextBtn">Next</button>
+        <button id="restartBtn">Restart</button>
+        <button id="shuffleBtn">Shuffle</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <small>Keyboard: 1–4 to answer, ←/→ to navigate.</small>
+  </footer>
+
+  <script src="parser.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

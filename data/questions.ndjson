@@ -1,0 +1,2 @@
+{"id":1,"question":"1 + 2 = ?","options":{"a":"5","b":"6","c":"3","d":"11"},"answer":"c","explanation":"1+2=3"}
+{"id":2,"question":"HTTP verb that is idempotent?","options":{"a":"POST","b":"GET","c":"PATCH","d":"CONNECT"},"answer":"b","explanation":"GET is idempotent"}

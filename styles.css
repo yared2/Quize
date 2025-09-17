@@ -1,0 +1,16 @@
+* { box-sizing: border-box; }
+body { font-family: system-ui, Arial, sans-serif; margin: 0; }
+.wrap { max-width: 860px; margin: 16px auto; padding: 0 12px; }
+h1 { margin: 8px 0 12px; }
+#card { border: 1px solid #ddd; border-radius: 12px; padding: 16px; }
+#qtext { font-size: 1.1rem; margin-bottom: 12px; }
+.choice { border: 1px solid #ddd; border-radius: 10px; padding: 10px; margin: 8px 0; cursor: pointer; }
+.choice.correct { background: #e7f7ea; border-color: #2e7d32; }
+.choice.wrong { background: #fde8e7; border-color: #c62828; }
+.controls { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+button { padding: 8px 12px; border: 1px solid #bbb; border-radius: 8px; background: #fff; cursor: pointer; }
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+#explanation { margin-top: 10px; min-height: 1.2em; }
+.loader { display: grid; gap: 6px; align-items: start; max-width: 100%; }
+.loader input { width: 100%; padding: 10px; border: 1px solid #bbb; border-radius: 8px; }
+#meta { margin-bottom: 10px; color: #444; }
